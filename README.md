@@ -266,7 +266,7 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 ## 👨‍💻 Author
 
 **Md. Ahsan Ul Alam**  
-Full Stack Developer — Laravel · Vue · Next.js
+Full Stack Developer — Laravel · React.js · Next.js
 
 ---
 
