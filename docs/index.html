@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laravel Bisbond Docs</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    code { white-space: pre-wrap; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100">
+  <div class="min-h-screen lg:grid lg:grid-cols-[280px_1fr]">
+    <aside class="border-b lg:border-b-0 lg:border-r border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 h-fit lg:h-screen overflow-y-auto">
+      <div class="p-6 border-b border-slate-800">
+        <div class="inline-flex items-center gap-3">
+          <div class="h-10 w-10 rounded-2xl bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold">LB</div>
+          <div>
+            <h1 class="text-xl font-bold">Laravel Bisbond</h1>
+            <p class="text-sm text-slate-400">Documentation</p>
+          </div>
+        </div>
+      </div>
+
+      <nav class="p-4 space-y-1 text-sm">
+        <a href="#overview" class="block rounded-xl px-4 py-2 hover:bg-slate-800 text-slate-200">Overview</a>
+        <a href="#quick-start" class="block rounded-xl px-4 py-2 hover:bg-slate-800 text-slate-200">Quick Start</a>
+        <a href="#features" class="block rounded-xl px-4 py-2 hover:bg-slate-800 text-slate-200">Features</a>
+        <a href="#dashboard" class="block rounded-xl px-4 py-2 hover:bg-slate-800 text-slate-200">Dashboard</a>
+        <a href="#settings" class="block rounded-xl px-4 py-2 hover:bg-slate-800 text-slate-200">Settings</a>
+        <a href="#modules" class="block rounded-xl px-4 py-2 hover:bg-slate-800 text-slate-200">Modules</a>
+        <a href="#formatter" class="block rounded-xl px-4 py-2 hover:bg-slate-800 text-slate-200">Bangla Formatter</a>
+        <a href="#invoice" class="block rounded-xl px-4 py-2 hover:bg-slate-800 text-slate-200">Invoice</a>
+        <a href="#sms" class="block rounded-xl px-4 py-2 hover:bg-slate-800 text-slate-200">SMS</a>
+        <a href="#payments" class="block rounded-xl px-4 py-2 hover:bg-slate-800 text-slate-200">Payments</a>
+        <a href="#helpers" class="block rounded-xl px-4 py-2 hover:bg-slate-800 text-slate-200">Helpers</a>
+        <a href="#commands" class="block rounded-xl px-4 py-2 hover:bg-slate-800 text-slate-200">Commands</a>
+        <a href="#developer-guide" class="block rounded-xl px-4 py-2 hover:bg-slate-800 text-slate-200">Developer Guide</a>
+        <a href="#roadmap" class="block rounded-xl px-4 py-2 hover:bg-slate-800 text-slate-200">Roadmap</a>
+      </nav>
+    </aside>
+
+    <main class="px-6 py-8 lg:px-10 lg:py-10">
+      <section id="overview" class="max-w-5xl mx-auto">
+        <div class="rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-900 to-slate-950 p-8 shadow-2xl">
+          <div class="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-300">Dashboard-first Laravel business toolkit</div>
+          <h2 class="mt-5 text-4xl font-bold tracking-tight">Install once. Open <span class="text-emerald-400">/bisbond</span>. Configure from one place.</h2>
+          <p class="mt-4 max-w-3xl text-lg leading-8 text-slate-300">
+            Laravel Bisbond is a regional business toolkit for Laravel applications. It centralizes settings, Bangla formatting,
+            invoice preview, SMS configuration, health checks, routes, commands, and future payment integrations in one dashboard.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#quick-start" class="rounded-2xl bg-emerald-500 px-5 py-3 font-semibold text-slate-950 hover:bg-emerald-400">Get Started</a>
+            <a href="#developer-guide" class="rounded-2xl border border-slate-700 px-5 py-3 font-semibold text-slate-200 hover:bg-slate-800">Developer Guide</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="quick-start" class="max-w-5xl mx-auto mt-12">
+        <h3 class="text-2xl font-bold">Quick Start</h3>
+        <div class="mt-5 rounded-3xl border border-slate-800 bg-slate-900 p-6">
+          <p class="text-slate-300">Install the package and open the dashboard.</p>
+          <pre class="mt-4 overflow-x-auto rounded-2xl bg-slate-950 p-5 text-sm text-emerald-300"><code>composer require ahsan-ul-alam/laravel-bisbond
+php artisan bisbond:install</code></pre>
+          <pre class="mt-4 overflow-x-auto rounded-2xl bg-slate-950 p-5 text-sm text-sky-300"><code>http://your-app.test/bisbond</code></pre>
+        </div>
+      </section>
+
+      <section id="features" class="max-w-5xl mx-auto mt-12">
+        <h3 class="text-2xl font-bold">Core Features</h3>
+        <div class="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6"><h4 class="font-semibold">Dashboard Control Center</h4><p class="mt-2 text-sm text-slate-400">Central place to manage business settings and toolkit features.</p></div>
+          <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6"><h4 class="font-semibold">Smart Settings</h4><p class="mt-2 text-sm text-slate-400">Database-driven settings with config fallback and caching.</p></div>
+          <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6"><h4 class="font-semibold">Health Checks</h4><p class="mt-2 text-sm text-slate-400">Detect missing configuration and guide the user to fix it.</p></div>
+          <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6"><h4 class="font-semibold">Bangla Formatter</h4><p class="mt-2 text-sm text-slate-400">Format digits, money, and date values for Bangla-first apps.</p></div>
+          <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6"><h4 class="font-semibold">Invoice Preview</h4><p class="mt-2 text-sm text-slate-400">Preview invoice output using real dashboard settings.</p></div>
+          <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6"><h4 class="font-semibold">Route & Command Explorer</h4><p class="mt-2 text-sm text-slate-400">Inspect package routes and artisan commands from one place.</p></div>
+        </div>
+      </section>
+
+      <section id="dashboard" class="max-w-5xl mx-auto mt-12">
+        <h3 class="text-2xl font-bold">Dashboard</h3>
+        <div class="mt-5 rounded-3xl border border-slate-800 bg-slate-900 p-6 space-y-4">
+          <p class="text-slate-300">The dashboard is the main setup center. From here, developers and users can:</p>
+          <ul class="list-disc pl-5 space-y-2 text-slate-400">
+            <li>See business setup status</li>
+            <li>Check invoice, SMS, and payment readiness</li>
+            <li>Enable or disable modules</li>
+            <li>Open quick actions to configure each section</li>
+            <li>Inspect routes and commands</li>
+            <li>Read developer help and integration guidance</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="settings" class="max-w-5xl mx-auto mt-12">
+        <h3 class="text-2xl font-bold">Settings Groups</h3>
+        <div class="mt-5 overflow-hidden rounded-3xl border border-slate-800 bg-slate-900">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-950 text-slate-300">
+              <tr>
+                <th class="px-5 py-4">Group</th>
+                <th class="px-5 py-4">Purpose</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800 text-slate-400">
+              <tr><td class="px-5 py-4 font-medium text-slate-200">General</td><td class="px-5 py-4">Business name, phone, address, locale, currency</td></tr>
+              <tr><td class="px-5 py-4 font-medium text-slate-200">Formatter</td><td class="px-5 py-4">Bangla digits, symbol, display preferences</td></tr>
+              <tr><td class="px-5 py-4 font-medium text-slate-200">Invoice</td><td class="px-5 py-4">Invoice prefix, footer, logo placeholder, business details</td></tr>
+              <tr><td class="px-5 py-4 font-medium text-slate-200">SMS</td><td class="px-5 py-4">Provider config, sender id, API key, templates</td></tr>
+              <tr><td class="px-5 py-4 font-medium text-slate-200">Payments</td><td class="px-5 py-4">Provider registry, sandbox/live config, callback preview</td></tr>
+              <tr><td class="px-5 py-4 font-medium text-slate-200">Modules</td><td class="px-5 py-4">Enable/disable formatter, invoice, SMS, and payments</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="modules" class="max-w-5xl mx-auto mt-12">
+        <h3 class="text-2xl font-bold">Modules</h3>
+        <div class="mt-5 grid gap-4 md:grid-cols-2">
+          <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6"><h4 class="font-semibold">Formatter</h4><p class="mt-2 text-sm text-slate-400">Bangla formatting helpers and preview tools.</p></div>
+          <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6"><h4 class="font-semibold">Invoice</h4><p class="mt-2 text-sm text-slate-400">Invoice settings and preview page.</p></div>
+          <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6"><h4 class="font-semibold">SMS</h4><p class="mt-2 text-sm text-slate-400">Provider config and SMS template management.</p></div>
+          <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6"><h4 class="font-semibold">Payments</h4><p class="mt-2 text-sm text-slate-400">Provider-ready architecture for local payment systems.</p></div>
+        </div>
+      </section>
+
+      <section id="formatter" class="max-w-5xl mx-auto mt-12">
+        <h3 class="text-2xl font-bold">Bangla Formatter</h3>
+        <div class="mt-5 rounded-3xl border border-slate-800 bg-slate-900 p-6">
+          <p class="text-slate-300">Use built-in helpers to format digits, money, and dates.</p>
+          <pre class="mt-4 overflow-x-auto rounded-2xl bg-slate-950 p-5 text-sm text-amber-300"><code>bn_digits(1234);   // ১২৩৪
+bn_money(1500);    // ৳১,৫০০.০০
+bn_date(now());    // Bangla formatted date</code></pre>
+        </div>
+      </section>
+
+      <section id="invoice" class="max-w-5xl mx-auto mt-12">
+        <h3 class="text-2xl font-bold">Invoice Module</h3>
+        <div class="mt-5 rounded-3xl border border-slate-800 bg-slate-900 p-6 space-y-4">
+          <p class="text-slate-300">Invoice preview is generated from configured business and invoice settings.</p>
+          <ul class="list-disc pl-5 space-y-2 text-slate-400">
+            <li>Business name</li>
+            <li>Invoice prefix</li>
+            <li>Footer note</li>
+            <li>Phone and address</li>
+            <li>Bangla formatted amount</li>
+          </ul>
+          <p class="text-sm text-slate-500">Future expansion: PDF export and multiple invoice templates.</p>
+        </div>
+      </section>
+
+      <section id="sms" class="max-w-5xl mx-auto mt-12">
+        <h3 class="text-2xl font-bold">SMS Module</h3>
+        <div class="mt-5 rounded-3xl border border-slate-800 bg-slate-900 p-6 space-y-4">
+          <p class="text-slate-300">Configure your SMS provider and maintain reusable templates from the dashboard.</p>
+          <pre class="overflow-x-auto rounded-2xl bg-slate-950 p-5 text-sm text-pink-300"><code>Templates:
+- OTP
+- Order Confirmation
+- Payment Success
+
+Placeholders:
+{name}, {otp}, {amount}, {invoice_no}</code></pre>
+        </div>
+      </section>
+
+      <section id="payments" class="max-w-5xl mx-auto mt-12">
+        <h3 class="text-2xl font-bold">Payment Architecture</h3>
+        <div class="mt-5 rounded-3xl border border-slate-800 bg-slate-900 p-6">
+          <p class="text-slate-300">Laravel Bisbond is designed to support local payment integrations through provider-based architecture.</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="rounded-full border border-slate-700 px-3 py-1 text-sm text-slate-300">bKash</span>
+            <span class="rounded-full border border-slate-700 px-3 py-1 text-sm text-slate-300">Nagad</span>
+            <span class="rounded-full border border-slate-700 px-3 py-1 text-sm text-slate-300">SSLCommerz</span>
+            <span class="rounded-full border border-slate-700 px-3 py-1 text-sm text-slate-300">Rocket</span>
+            <span class="rounded-full border border-slate-700 px-3 py-1 text-sm text-slate-300">Manual Payment</span>
+          </div>
+          <p class="mt-4 text-sm text-slate-500">Future-ready: provider interface, registry, and dashboard-based provider configuration.</p>
+        </div>
+      </section>
+
+      <section id="helpers" class="max-w-5xl mx-auto mt-12">
+        <h3 class="text-2xl font-bold">Helper Functions</h3>
+        <pre class="mt-5 overflow-x-auto rounded-3xl border border-slate-800 bg-slate-900 p-6 text-sm text-emerald-300"><code>bisbond_setting('general.business_name');
+bisbond_setting('invoice.prefix');
+
+bisbond_module('invoice');
+bisbond_module('sms');
+
+bn_digits(1234);
+bn_money(1500);
+bn_date(now());</code></pre>
+      </section>
+
+      <section id="commands" class="max-w-5xl mx-auto mt-12">
+        <h3 class="text-2xl font-bold">Commands</h3>
+        <pre class="mt-5 overflow-x-auto rounded-3xl border border-slate-800 bg-slate-900 p-6 text-sm text-sky-300"><code>php artisan bisbond:install
+php artisan optimize:clear
+php artisan vendor:publish --tag=bisbond-config --force</code></pre>
+      </section>
+
+      <section id="developer-guide" class="max-w-5xl mx-auto mt-12">
+        <h3 class="text-2xl font-bold">Developer Guide</h3>
+        <div class="mt-5 rounded-3xl border border-slate-800 bg-slate-900 p-6 space-y-4">
+          <p class="text-slate-300">Use this package as a dashboard-first toolkit for Laravel regional business apps.</p>
+          <ul class="list-disc pl-5 space-y-2 text-slate-400">
+            <li>Route prefix: <code class="text-emerald-300">/bisbond</code></li>
+            <li>Settings are stored in <code class="text-emerald-300">bisbond_settings</code></li>
+            <li>Use helpers to fetch settings and module status</li>
+            <li>Use provider-based architecture for future SMS and payment integrations</li>
+            <li>Publish config and views when customization is needed</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="roadmap" class="max-w-5xl mx-auto mt-12 mb-20">
+        <h3 class="text-2xl font-bold">Roadmap</h3>
+        <div class="mt-5 rounded-3xl border border-slate-800 bg-slate-900 p-6">
+          <ul class="space-y-3 text-slate-300">
+            <li>✅ Dashboard-first settings and control center</li>
+            <li>✅ Bangla formatter helpers</li>
+            <li>✅ Invoice preview</li>
+            <li>✅ Health checks</li>
+            <li>✅ Route and command explorer</li>
+            <li>🔄 SMS configuration and template improvements</li>
+            <li>🔄 Payment provider architecture and registry</li>
+            <li>🔄 PDF invoice export</li>
+            <li>🔄 Plugin-style feature expansion</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
