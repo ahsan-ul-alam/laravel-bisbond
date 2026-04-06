@@ -17,27 +17,20 @@ class InvoiceController extends Controller
 
     public function preview()
     {
-        //formatter create
         $formatter = new BanglaFormatter();
-
         $amount = 1500;
 
         $invoice = [
             'business_name' => $this->settings->get('general.business_name', 'My Business'),
-            'prefix' => $this->settings->get('invoice.prefix', 'INV-'),
-            'number' => '001',
-
-            'amount' => $amount,
-
-            // conversion
-            'amount_bn' => $formatter->digits($amount),
-
-            'currency' => $this->settings->get('general.currency', 'BDT'),
-            'footer' => $this->settings->get('invoice.footer', 'Thank you for your business!'),
-
-            'date' => now()->format('Y-m-d'),
-
-            'date_bn' => $formatter->date(now()),
+            'prefix'        => $this->settings->get('invoice.prefix', 'INV-'),
+            'number'        => '001',
+            'amount'        => $amount,
+            'amount_bn'     => $formatter->toBangla($amount),
+            'amount_money'  => $formatter->money($amount),
+            'currency'      => $this->settings->get('general.currency', 'BDT'),
+            'footer'        => $this->settings->get('invoice.footer', 'Thank you for your business!'),
+            'date'          => now()->format('Y-m-d'),
+            'date_bn'       => $formatter->date(now()),
         ];
 
         return view('bisbond::invoice.preview', compact('invoice'));

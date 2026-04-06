@@ -1,31 +1,56 @@
 <?php
 
-use AhsanUlAlam\LaravelBisbond\Facades\Bisbond;
+use AhsanUlAlam\LaravelBisbond\Services\SettingService;
+use AhsanUlAlam\LaravelBisbond\Support\BanglaFormatter;
 
-if (! function_exists('bisbond_setting')) {
-    function bisbond_setting(string $key, mixed $default = null): mixed
+if (!function_exists('bisbond_setting')) {
+    /**
+     * Access the Bisbond Setting Service or get a specific key value.
+     */
+    function bisbond_setting(string $key = null, mixed $default = null): mixed
     {
-        return Bisbond::setting($key, $default);
+        $service = app(SettingService::class);
+        return is_null($key) ? $service : $service->get($key, $default);
     }
 }
 
-if (! function_exists('bn_digits')) {
-    function bn_digits(string|int|float $value): string
+if (!function_exists('bisbond_module')) {
+    /**
+     * Check if a specific Bisbond module is enabled.
+     */
+    function bisbond_module(string $module): bool
     {
-        return Bisbond::formatter()->digits($value);
+        return app(SettingService::class)->isModuleEnabled($module);
     }
 }
 
-if (! function_exists('bn_money')) {
-    function bn_money(string|int|float $amount, bool $symbol = true): string
+if (!function_exists('bn_digits')) {
+    /**
+     * Convert numbers to Bangla digits.
+     */
+    function bn_digits(mixed $number): string
     {
-        return Bisbond::formatter()->money($amount, $symbol);
+        return BanglaFormatter::toBangla($number);
     }
 }
 
-if (! function_exists('bn_date')) {
-    function bn_date(mixed $date): string
+if (!function_exists('bn_money')) {
+    /**
+     * Format number as Bangla currency.
+     */
+    function bn_money(mixed $amount): string
     {
-        return Bisbond::formatter()->date($date);
+        $symbol = bisbond_setting('formatter.currency_symbol', '৳');
+        return bn_digits($amount) . ' ' . $symbol;
+    }
+}
+
+if (!function_exists('bn_date')) {
+    /**
+     * Convert date string to Bangla.
+     */
+    function bn_date(string $dateString): string
+    {
+        return BanglaFormatter::toBangla($dateString);
     }
 }

@@ -1,26 +1,40 @@
 <?php
+
 return [
+    /*
+    |--------------------------------------------------------------------------
+    | Dashboard Route Prefix
+    |--------------------------------------------------------------------------
+    | The URL prefix used to access the control center (e.g., /bisbond).
+    */
     'route_prefix' => 'bisbond',
 
-    'route_middleware' => ['web', 'auth'],
+    /*
+    |--------------------------------------------------------------------------
+    | Route Middleware
+    |--------------------------------------------------------------------------
+    */
+    'route_middleware' => ['web'],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Dashboard Settings
+    |--------------------------------------------------------------------------
+    */
     'dashboard' => [
         'enabled' => true,
-        'title' => 'Laravel Bisbond',
+        'title'   => 'Bisbond Control Center',
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Default Module States (Fallback)
+    |--------------------------------------------------------------------------
+    */
     'modules' => [
         'formatter' => true,
-        'invoice' => true,
-        'sms' => true,
-        'payments' => false,
-    ],
-
-    'defaults' => [
-        'locale' => 'bn',
-        'currency' => 'BDT',
-        'currency_symbol' => '৳',
-        'use_bangla_digits' => true,
-        'invoice_prefix' => 'INV-',
+        'invoice'   => true,
+        'sms'       => false,
+        'payments'  => false,
     ],
 ];

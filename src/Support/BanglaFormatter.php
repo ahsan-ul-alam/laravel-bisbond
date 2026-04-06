@@ -34,6 +34,11 @@ class BanglaFormatter
         12 => 'ডিসেম্বর',
     ];
 
+    public function toBangla(string|int|float $value): string
+    {
+        return $this->digits($value);
+    }
+
     public function digits(string|int|float $value): string
     {
         return strtr((string) $value, $this->englishToBangla);
@@ -42,19 +47,15 @@ class BanglaFormatter
     public function money(string|int|float $amount, bool $symbol = true): string
     {
         $formatted = number_format((float) $amount, 2);
-        $formatted = $this->digits($formatted);
-
-        return $symbol ? '৳' . $formatted : $formatted;
+        return $symbol ? '৳' . $this->digits($formatted) : $this->digits($formatted);
     }
 
     public function date(mixed $date): string
     {
         $date = Carbon::parse($date);
 
-        $day = $this->digits($date->day);
-        $month = $this->months[$date->month] ?? $date->format('F');
-        $year = $this->digits($date->year);
-
-        return "{$day} {$month} {$year}";
+        return $this->digits($date->day) . ' ' .
+            ($this->months[$date->month] ?? $date->format('F')) . ' ' .
+            $this->digits($date->year);
     }
 }

@@ -8,31 +8,38 @@ use Illuminate\Support\Facades\Route;
 
 class SystemController extends Controller
 {
+    /**
+     * Display package-specific routes with metadata.
+     */
     public function routes()
     {
+        $prefix = config('bisbond.route_prefix', 'bisbond');
+        
         $routes = collect(Route::getRoutes())
-            ->filter(fn($route) => str_starts_with($route->uri(), config('bisbond.route_prefix')))
+            ->filter(fn($route) => str_starts_with($route->uri(), $prefix))
             ->map(fn($route) => [
                 'method' => implode('|', $route->methods()),
-                'uri' => $route->uri(),
-                'name' => $route->getName(),
+                'uri'    => $route->uri(),
+                'name'   => $route->getName(),
                 'action' => $route->getActionName(),
-                'example' => url($route->uri()),
             ])
             ->values();
 
         return view('bisbond::system.routes', compact('routes'));
     }
 
+    /**
+     * Display package-specific commands with usage hints.
+     */
     public function commands()
     {
         $commands = collect(Artisan::all())
-            ->map(fn($command, $name) => [
-                'name' => $name,
-                'description' => $command->getDescription(),
-                'usage' => "php artisan {$name}",
+            ->filter(fn($cmd, $name) => str_starts_with($name, 'bisbond:'))
+            ->map(fn($cmd, $name) => [
+                'name'        => $name,
+                'description' => $cmd->getDescription(),
+                'usage'       => "php artisan $name",
             ])
-            ->filter(fn($command) => str_starts_with($command['name'], 'bisbond:'))
             ->values();
 
         return view('bisbond::system.commands', compact('commands'));

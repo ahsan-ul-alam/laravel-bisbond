@@ -12,135 +12,123 @@ class BisbondHealthService
     }
 
     /**
-     * Get health checks results.
+     * Get a list of diagnostic health checks.
      */
     public function check(): array
     {
-        $results = [];
-
-        // Check Business Name
-        $results[] = $this->checkBusinessName();
-
-        // Check Invoice Prefix
-        $results[] = $this->checkInvoicePrefix();
-
-        // Check SMS Config
-        $results[] = $this->checkSmsConfig();
-
-        // Check Payment Config
-        $results[] = $this->checkPaymentConfig();
-
-        return $results;
+        return [
+            $this->checkGeneral(),
+            $this->checkInvoice(),
+            $this->checkSMS(),
+            $this->checkPayments(),
+        ];
     }
 
-    protected function checkBusinessName(): array
+    protected function checkGeneral(): array
     {
         $name = $this->settings->get('general.business_name');
-
-        if (!$name) {
+        
+        if (empty($name) || $name === 'Bisbond Business') {
             return [
-                'status' => 'error',
-                'title' => 'Missing Business Name',
-                'message' => 'The business name is not set.',
-                'suggestion' => 'Go to Wizard or Settings to update your business name.'
+                'status' => 'warning',
+                'title' => 'Business Identity',
+                'message' => 'Business name is still set to default or empty.',
+                'suggestion' => 'Update your business name in General Settings.',
+                'action_url' => route('bisbond.settings.index', ['group' => 'general'])
             ];
         }
 
         return [
             'status' => 'ok',
-            'title' => 'Business Name',
-            'message' => 'Business name is properly configured.',
-            'suggestion' => null
+            'title' => 'Business Identity',
+            'message' => 'Configured as: ' . $name,
+            'suggestion' => null,
+            'action_url' => null
         ];
     }
 
-    protected function checkInvoicePrefix(): array
+    protected function checkInvoice(): array
     {
         if (!$this->settings->isModuleEnabled('invoice')) {
             return [
                 'status' => 'warning',
-                'title' => 'Invoice Module Disabled',
+                'title' => 'Invoice Module',
                 'message' => 'The invoice module is currently disabled.',
-                'suggestion' => 'Enable the invoice module in settings if needed.'
+                'suggestion' => 'Enable it in Module Settings if you need invoicing.',
+                'action_url' => route('bisbond.settings.index', ['group' => 'modules'])
             ];
         }
 
         $prefix = $this->settings->get('invoice.prefix');
-
-        if (!$prefix) {
+        if (empty($prefix)) {
             return [
                 'status' => 'error',
-                'title' => 'Missing Invoice Prefix',
-                'message' => 'Invoice prefix is not configured.',
-                'suggestion' => 'Set an invoice prefix like INV-'
+                'title' => 'Invoice Config',
+                'message' => 'Invoice prefix is missing.',
+                'suggestion' => 'Set a prefix like "INV-" in Invoice Settings.',
+                'action_url' => route('bisbond.settings.index', ['group' => 'invoice'])
             ];
         }
 
         return [
             'status' => 'ok',
-            'title' => 'Invoice Module',
-            'message' => 'Invoice module is ready.',
-            'suggestion' => null
+            'title' => 'Invoice Config',
+            'message' => 'Module is ready with prefix: ' . $prefix,
+            'suggestion' => null,
+            'action_url' => null
         ];
     }
 
-    protected function checkSmsConfig(): array
+    protected function checkSMS(): array
     {
         if (!$this->settings->isModuleEnabled('sms')) {
-             return [
+            return [
                 'status' => 'warning',
-                'title' => 'SMS Module Disabled',
-                'message' => 'The SMS module is currently disabled.',
-                'suggestion' => 'Enable the SMS module in settings if needed.'
+                'title' => 'SMS Gateway',
+                'message' => 'SMS gateway is disabled.',
+                'suggestion' => 'Enable it to manage SMS templates and providers.',
+                'action_url' => route('bisbond.settings.index', ['group' => 'modules'])
             ];
         }
 
         $apiKey = $this->settings->get('sms.api_key');
-
-        if (!$apiKey) {
+        if (empty($apiKey)) {
             return [
                 'status' => 'error',
-                'title' => 'Missing SMS API Key',
-                'message' => 'SMS API key is missing.',
-                'suggestion' => 'Provide your SMS gateway API key in settings.'
+                'title' => 'SMS Config',
+                'message' => 'SMS API key/secret is not configured.',
+                'suggestion' => 'Provide your gateway credentials in SMS Settings.',
+                'action_url' => route('bisbond.settings.index', ['group' => 'sms'])
             ];
         }
 
         return [
             'status' => 'ok',
             'title' => 'SMS Gateway',
-            'message' => 'SMS provider is configured.',
-            'suggestion' => null
+            'message' => 'API Key is configured.',
+            'suggestion' => null,
+            'action_url' => null
         ];
     }
 
-    protected function checkPaymentConfig(): array
+    protected function checkPayments(): array
     {
         if (!$this->settings->isModuleEnabled('payments')) {
              return [
                 'status' => 'warning',
-                'title' => 'Payment Module Disabled',
-                'message' => 'The payment module is currently disabled.',
-                'suggestion' => 'Enable the payment module in settings if needed.'
-            ];
-        }
-
-        $config = $this->settings->get('payments.gateway');
-
-        if (!$config) {
-            return [
-                'status' => 'error',
-                'title' => 'Missing Payment Config',
-                'message' => 'Payment gateway is not configured.',
-                'suggestion' => 'Configure your payment gateway (SSLCommerz, etc.)'
+                'title' => 'Payment System',
+                'message' => 'Payments are currently disabled.',
+                'suggestion' => 'Enable the payment module to configure local gateways.',
+                'action_url' => route('bisbond.settings.index', ['group' => 'modules'])
             ];
         }
 
         return [
             'status' => 'ok',
-            'title' => 'Payments',
-            'message' => 'Payment system is ready.',
-            'suggestion' => null
+            'title' => 'Payment System',
+            'message' => 'Module is active and ready for configuration.',
+            'suggestion' => null,
+            'action_url' => null
         ];
     }
 }

@@ -3,8 +3,12 @@
 namespace AhsanUlAlam\LaravelBisbond;
 
 use AhsanUlAlam\LaravelBisbond\Console\InstallCommand;
-use AhsanUlAlam\LaravelBisbond\Services\BisbondManager;
+use AhsanUlAlam\LaravelBisbond\Services\SettingService;
+use AhsanUlAlam\LaravelBisbond\Services\BisbondHealthService;
+use AhsanUlAlam\LaravelBisbond\Services\PaymentProviderManager;
+use AhsanUlAlam\LaravelBisbond\Http\Middleware\CheckModuleEnabled;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Routing\Router;
 
 class LaravelBisbondServiceProvider extends ServiceProvider
 {
@@ -12,24 +16,30 @@ class LaravelBisbondServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/bisbond.php', 'bisbond');
 
-        $this->app->singleton('bisbond', function () {
-            return new Services\BisbondManager();
+        // Register SettingService as a singleton to maintain memory map
+        $this->app->singleton(SettingService::class, function () {
+            return new SettingService();
         });
 
-        $this->app->singleton(Services\SettingService::class, function () {
-            return new Services\SettingService();
+        // Register HealthService
+        $this->app->singleton(BisbondHealthService::class, function ($app) {
+            return new BisbondHealthService($app->make(SettingService::class));
         });
 
-        $this->app->singleton(Services\BisbondHealthService::class, function ($app) {
-            return new Services\BisbondHealthService($app->make(Services\SettingService::class));
+        // Register Payment Manager
+        $this->app->singleton(PaymentProviderManager::class, function () {
+            return new PaymentProviderManager();
         });
     }
 
-    public function boot(): void
+    public function boot(Router $router): void
     {
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'bisbond');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
+        // Register Middleware alias
+        $router->aliasMiddleware('bisbond.module', CheckModuleEnabled::class);
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
@@ -43,6 +53,11 @@ class LaravelBisbondServiceProvider extends ServiceProvider
             $this->commands([
                 InstallCommand::class,
             ]);
+        }
+
+        // Auto-load helpers
+        if (file_exists($helperPath = __DIR__ . '/Helpers/helpers.php')) {
+            require_once $helperPath;
         }
     }
 }

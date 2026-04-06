@@ -1,0 +1,68 @@
+# =========================
+# Dependencies
+# =========================
+/vendor/
+/node_modules/
+
+# =========================
+# Composer / Package
+# =========================
+composer.lock
+
+# =========================
+# Environment Files
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# IDE / Editor Files
+# =========================
+/.idea/
+/.vscode/
+/.fleet/
+*.sublime-project
+*.sublime-workspace
+
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs & Debug
+# =========================
+*.log
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =========================
+# Cache / Temp
+# =========================
+.cache/
+.temp/
+tmp/
+*.cache
+
+# =========================
+# Testing
+# =========================
+/.phpunit.cache
+/.pest.cache
+coverage/
+
+# =========================
+# Build / Dist
+# =========================
+/build/
+/dist/
+
+# =========================
+# Misc
+# =========================
+*.zip
+*.tar
+*.gz

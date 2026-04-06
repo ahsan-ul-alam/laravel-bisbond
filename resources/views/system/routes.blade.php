@@ -4,44 +4,43 @@
 
 @section('content')
 <div x-data="{ search: '' }" class="space-y-6">
-    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-            <h3 class="text-lg font-bold text-gray-800">Application Routes</h3>
-            <p class="text-sm text-gray-500">Search and explore registered routes in your application.</p>
+            <h3 class="text-xl font-black text-slate-800 uppercase tracking-tight">Package Routes</h3>
+            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Directly accessible endpoints</p>
         </div>
-        <div class="relative">
-            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
-                <i class="fas fa-search"></i>
-            </span>
-            <input type="text" x-model="search" placeholder="Filter by URI or Name..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 w-full md:w-80">
+        <div class="relative w-full md:w-80">
+            <input type="text" x-model="search" placeholder="Filter by URI or Name..." class="w-full bg-slate-50 border-0 rounded-2xl px-5 py-3.5 focus:ring-2 focus:ring-indigo-500 transition-all text-sm font-bold">
+            <i class="fas fa-search absolute right-5 top-4 text-slate-300"></i>
         </div>
     </div>
 
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Method</th>
-                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">URI</th>
-                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Name</th>
-                    <th class="px-6 py-3 text-right text-xs font-bold text-gray-500 uppercase tracking-wider">Actions</th>
+    <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+        <table class="w-full text-left">
+            <thead>
+                <tr class="bg-slate-50 border-b border-slate-100">
+                    <th class="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">Method</th>
+                    <th class="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">URI / Route</th>
+                    <th class="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Actions</th>
                 </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
+            <tbody class="divide-y divide-slate-50">
                 <template x-for="route in {{ json_encode($routes) }}">
-                    <tr x-show="route.uri.toLowerCase().includes(search.toLowerCase()) || (route.name && route.name.toLowerCase().includes(search.toLowerCase()))">
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-800" x-text="route.method"></span>
+                    <tr x-show="route.uri.toLowerCase().includes(search.toLowerCase()) || (route.name && route.name.toLowerCase().includes(search.toLowerCase()))" 
+                        class="hover:bg-slate-50/50 transition-colors group">
+                        <td class="px-8 py-6">
+                            <span class="px-3 py-1 bg-indigo-50 text-indigo-600 rounded-lg text-[10px] font-black uppercase tracking-tight" x-text="route.method"></span>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" x-text="route.uri"></td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" x-text="route.name || '-'"></td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <button @click="navigator.clipboard.writeText(route.example); alert('URL copied!')" class="text-indigo-600 hover:text-indigo-900 mr-3">
-                                <i class="fas fa-copy"></i>
+                        <td class="px-8 py-6">
+                            <div class="flex flex-col">
+                                <span class="text-sm font-black text-slate-700" x-text="'/' + route.uri"></span>
+                                <span class="text-[10px] font-bold text-slate-400 mt-1 uppercase" x-text="route.name || 'Unnamed Route'"></span>
+                            </div>
+                        </td>
+                        <td class="px-8 py-6 text-right">
+                            <button @click="navigator.clipboard.writeText('/' + route.uri); alert('Route Copied!')" class="w-10 h-10 rounded-xl bg-slate-50 text-slate-300 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all">
+                                <i class="fas fa-copy text-xs"></i>
                             </button>
-                            <a :href="route.example" target="_blank" class="text-gray-400 hover:text-gray-600">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
                         </td>
                     </tr>
                 </template>
