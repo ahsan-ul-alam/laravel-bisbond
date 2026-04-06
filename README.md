@@ -12,7 +12,7 @@
   </p>
 </p>
 
-##Documentation: <a href="https://tinyurl.com/bisbond">https://tinyurl.com/bisbond</a>
+#Documentation: <a target="_blank" href="https://tinyurl.com/bisbond">https://tinyurl.com/bisbond</a>
 
 ---
 
