@@ -12,6 +12,8 @@
   </p>
 </p>
 
+##Documentation: <a href="https://tinyurl.com/bisbond">https://tinyurl.com/bisbond</a>
+
 ---
 
 > 🎯 **Install once → Open `/bisbond` → Configure everything from the dashboard.**
@@ -137,7 +139,7 @@ Provider/adapter pattern designed for:
 **1. Require the package**
 
 ```bash
-composer require ahsan-ul-alam/laravel-bisbond:@dev
+composer require ahsan-ul-alam/laravel-bisbond
 ```
 
 **2. Run the installer**
